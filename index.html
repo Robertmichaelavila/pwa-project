@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ffffff"> <!-- Adicionado theme-color -->
+  <meta name="theme-color" content="#ffffff">
   <title>Simple PWA</title>
   <style>
     body {
@@ -32,6 +32,17 @@
       width: 100%;
       margin-top: 50px;
     }
+
+    #installButton {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -40,12 +51,37 @@
   <p>This app works offline!</p>
   <div>
     <img src="icons/web-app-manifest-192x192.png" alt="App icon" onerror="this.src='fallback-icon.png'">
-    <!-- Adicionado fallback -->
   </div>
 
+  <button id="installButton">Instalar PWA</button>
+
   <script>
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+
+      // Mostra o botão de instalação
+      const installButton = document.getElementById('installButton');
+      installButton.style.display = 'block';
+
+      installButton.addEventListener('click', () => {
+        // Mostra o prompt de instalação
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Usuário aceitou a instalação');
+          } else {
+            console.log('Usuário recusou a instalação');
+          }
+          deferredPrompt = null;
+        });
+      });
+    });
+
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service_worker.js') // Corrigido o caminho
+      navigator.serviceWorker.register('./service_worker.js')
         .then(() => console.log('Service Worker registered successfully.'))
         .catch(error => console.log('Service Worker registration failed:', error));
     }

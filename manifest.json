@@ -1,8 +1,9 @@
 {
   "name": "MyWebSite",
   "short_name": "MySite",
-  "start_url": "index.html", 
-  "scope": "/", 
+  "description": "Um PWA simples que funciona offline.",
+  "start_url": "/index.html",
+  "scope": "/",
   "icons": [
     {
       "src": "icons/web-app-manifest-192x192.png",
@@ -19,5 +20,6 @@
   ],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "orientation": "portrait"
 }
