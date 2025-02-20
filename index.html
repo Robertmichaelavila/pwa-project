@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff"> <!-- Adicionado theme-color -->
   <title>Simple PWA</title>
   <style>
     body {
@@ -11,24 +13,43 @@
       text-align: center;
       padding: 50px;
     }
+
     h1 {
       color: #333;
     }
+
     p {
       color: #666;
     }
+
+    img {
+      width: 100px;
+      height: 100px;
+      margin: auto;
+    }
+
+    div {
+      width: 100%;
+      margin-top: 50px;
+    }
   </style>
 </head>
+
 <body>
   <h1>Welcome to My PWA</h1>
   <p>This app works offline!</p>
+  <div>
+    <img src="icons/web-app-manifest-192x192.png" alt="App icon" onerror="this.src='fallback-icon.png'">
+    <!-- Adicionado fallback -->
+  </div>
 
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service_worker.js')
+      navigator.serviceWorker.register('./service_worker.js') // Corrigido o caminho
         .then(() => console.log('Service Worker registered successfully.'))
         .catch(error => console.log('Service Worker registration failed:', error));
     }
   </script>
 </body>
+
 </html>
