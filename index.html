@@ -1,91 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <title>Simple PWA</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    p {
-      color: #666;
-    }
-
-    img {
-      width: 100px;
-      height: 100px;
-      margin: auto;
-    }
-
-    div {
-      width: 100%;
-      margin-top: 50px;
-    }
-
-    #installButton {
-      display: none;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List PWA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
-
 <body>
-  <h1>Welcome to My PWA</h1>
-  <p>This app works offline!</p>
-  <div>
-    <img src="icons/web-app-manifest-192x192.png" alt="App icon" onerror="this.src='fallback-icon.png'">
-  </div>
+    <main>
+        <nav>
+            <div>
+                <h1>TaskFlow</h1>
+            </div>
+            <div>
+                <form id="taskForm">
+                    <input type="text" id="taskInput" placeholder="Fazer nova tarefa..." required>
+                    <button type="submit">Adicionar</button>
+                </form>
+            </div>
+        </nav>
 
-  <button id="installButton">Instalar PWA</button>
+        <section class="container">
+            <div class="welcome">
+                <img width="100" height="100" src="https://img.icons8.com/ios/50/task.png" alt="task"/>
+                <p>Tudo em ordem! Adicione uma nova tarefa para começar.</p>
+            </div>
 
-  <script>
-    let deferredPrompt;
+            <div class="content">
+                <h1 id="title">Sua lista de tarefas:</h1>
+                <ul id="taskList"></ul>
+            </div>
+        </section>
 
-    window.addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault();
-      deferredPrompt = event;
+        <footer>
+            <p>Copyright © 2024 by Robert Michael</p>
+        </footer>
 
-      // Mostra o botão de instalação
-      const installButton = document.getElementById('installButton');
-      installButton.style.display = 'block';
+    </main>
 
-      installButton.addEventListener('click', () => {
-        // Mostra o prompt de instalação
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('Usuário aceitou a instalação');
-          } else {
-            console.log('Usuário recusou a instalação');
-          }
-          deferredPrompt = null;
-        });
-      });
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service_worker.js')
-        .then(() => console.log('Service Worker registered successfully.'))
-        .catch(error => console.log('Service Worker registration failed:', error));
-    }
-  </script>
+    <div id="welcomePopup" class="popup">
+      <div class="popup-content">
+          <h2>Bem-vindo(a) ao TaskFlow!</h2>
+          <p>
+              Este é um aplicativo simples para gerenciar suas tarefas diárias. 
+              Você pode adicionar, marcar como concluída e excluir tarefas. 
+              Tudo fica salvo localmente no seu navegador, mesmo offline!
+          </p>
+          <button id="closePopup">Entendi!</button>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+    <script src="js/welcome_script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('serviceworker.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch(err => console.log('Erro ao registrar Service Worker:', err));
+        }
+    </script>
 </body>
-
 </html>

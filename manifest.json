@@ -1,25 +1,28 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
-  "description": "Um PWA simples que funciona offline.",
-  "start_url": "/index.html",
+  "name": "To-Do List PWA",
+  "short_name": "To-Do",
+  "description": "Uma aplicação de lista de tarefas que funciona offline.",
+  "start_url": "./index.html",
   "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#28a745",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "icons/web-app-manifest-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "src": "icons/tarefa-100.png",
+      "sizes": "100x100",
+      "type": "image/png"
     },
     {
-      "src": "icons/web-app-manifest-512x512.png",
+      "src": "icons/tarefa-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/tarefa-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }
